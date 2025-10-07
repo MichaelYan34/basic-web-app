@@ -1,5 +1,15 @@
 export default function QueryProcessor(query: string): string {
-  if (query.toLowerCase().includes("shakespeare")) {
+  const lowerQuery = query.toLowerCase();
+
+  // Handle 'what is X plus Y' queries
+  const plusMatch = lowerQuery.match(/what is (\d+) plus (\d+)/);
+  if (plusMatch) {
+    const x = parseInt(plusMatch[1], 10);
+    const y = parseInt(plusMatch[2], 10);
+    return `${x + y}`;
+  }
+
+  if (lowerQuery.includes("shakespeare")) {
     return (
       "William Shakespeare (26 April 1564 - 23 April 1616) was an " +
       "English poet, playwright, and actor, widely regarded as the greatest " +
@@ -7,11 +17,11 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
-  if (query.toLowerCase().includes("name")) {
+  if (lowerQuery.includes("name")) {
     return "MichaelYan34";
   }
 
-  if (query.toLowerCase().includes("andrew id")) {
+  if (lowerQuery.includes("andrew id")) {
     return "tingxiay";
   }
 
