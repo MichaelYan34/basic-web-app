@@ -1,4 +1,15 @@
 export default function QueryProcessor(query: string): string {
+    // Handle 'Which of the following numbers is the largest' queries
+    const largestMatch = query.match(/which of the following numbers is the largest: ([\d, ]+)/i);
+    if (largestMatch) {
+      const numbers = largestMatch[1]
+        .split(',')
+        .map(n => parseInt(n.trim(), 10))
+        .filter(n => !isNaN(n));
+      if (numbers.length > 0) {
+        return `${Math.max(...numbers)}`;
+      }
+    }
   const lowerQuery = query.toLowerCase();
 
   // Handle 'what is X plus Y' queries
